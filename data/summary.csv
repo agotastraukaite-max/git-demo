@@ -1,0 +1,5 @@
+level,service,message,count,first_seen,last_seen
+ERROR,database-service,Connection pool exhausted,2,2026-07-09T15:33:00+00:00,2026-07-09T15:37:00+00:00
+INFO,api-service,malformed-timestamp,1,2026-07-09T15:36:00+00:00,2026-07-09T15:36:00+00:00
+INFO,auth-service,User login successful,2,2026-07-09T15:30:00+00:00,2026-07-09T15:31:00+00:00
+WARN,payment-service,Transaction timeout occurred,2,2026-07-09T15:32:00+00:00,2026-07-09T15:34:00+00:00

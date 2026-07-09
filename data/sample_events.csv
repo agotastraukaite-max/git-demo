@@ -1,0 +1,9 @@
+timestamp,level,service,message
+2026-07-09T15:30:00Z,INFO,auth-service,User login successful
+2026-07-09T15:31:00Z,info,auth-service,  User login successful  
+2026-07-09T15:32:00Z,WARN,payment-service,Transaction timeout occurred
+2026-07-09T15:33:00Z,ERROR,database-service,Connection pool exhausted
+2026-07-09T15:34:00Z,warn,payment-service,Transaction timeout occurred
+2026-07-09T15:35:00Z,,logging-service,Empty level edge case
+2026-07-09T15:36:00Z,INFO,api-service,malformed-timestamp
+2026-07-09T15:37:00Z,ERROR,database-service,Connection pool exhausted

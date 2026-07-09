@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import sys
 import os
 
 os.chdir(r'C:\Users\AgotaStraukaite\.copilot\chats\39969f8e-4918-4663-899d-f248a6ddd5e4')

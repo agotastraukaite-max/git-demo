@@ -33,8 +33,11 @@ function CustomTooltip({ active, payload, label, compareMode }) {
   );
 }
 
-function CashFlowChart({ dataA, dataB }) {
+function CashFlowChart({ dataA, dataB, darkMode }) {
   const compareMode = Boolean(dataB);
+  const gridColor = darkMode ? '#334155' : '#e5e7eb';
+  const refLineColor = darkMode ? '#475569' : '#9ca3af';
+  const tickColor = darkMode ? '#94a3b8' : '#6b7280';
 
   const chartData = compareMode
     ? Array.from({ length: Math.max(dataA.length, dataB.length) }, (_, i) => ({
@@ -49,13 +52,13 @@ function CashFlowChart({ dataA, dataB }) {
       <h2 className="card-title">Cumulative Cash Flow</h2>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
           <XAxis
             dataKey="month"
-            label={{ value: 'Month', position: 'insideBottom', offset: -2, fontSize: 12 }}
-            tick={{ fontSize: 12 }}
+            label={{ value: 'Month', position: 'insideBottom', offset: -2, fontSize: 12, fill: tickColor }}
+            tick={{ fontSize: 12, fill: tickColor }}
           />
-          <YAxis tickFormatter={formatDollar} tick={{ fontSize: 11 }} width={60} />
+          <YAxis tickFormatter={formatDollar} tick={{ fontSize: 11, fill: tickColor }} width={60} />
           <Tooltip content={<CustomTooltip compareMode={compareMode} />} />
           {compareMode && (
             <Legend
@@ -64,7 +67,7 @@ function CashFlowChart({ dataA, dataB }) {
               formatter={(value) => value === 'A' ? 'Scenario A' : 'Scenario B'}
             />
           )}
-          <ReferenceLine y={0} stroke="#9ca3af" strokeDasharray="5 5" strokeWidth={2} />
+          <ReferenceLine y={0} stroke={refLineColor} strokeDasharray="5 5" strokeWidth={2} />
           <Line
             type="monotone"
             dataKey="A"

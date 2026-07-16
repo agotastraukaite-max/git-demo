@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import InputForm from './components/InputForm';
 import Results from './components/Results';
 import CashFlowChart from './components/CashFlowChart';
@@ -12,7 +12,12 @@ const DEFAULTS = {
 };
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
   const [activeTab, setActiveTab] = useState('A');
   const [scenarioA, setScenarioA] = useState(DEFAULTS);
   const [scenarioB, setScenarioB] = useState(DEFAULTS);
@@ -37,9 +42,14 @@ function App() {
             <h1 className="app-title">Business ROI Calculator</h1>
             <p className="app-subtitle">Estimate your return on investment and break-even point</p>
           </div>
-          <button className={`compare-btn ${compareMode ? 'active' : ''}`} onClick={toggleCompare}>
-            {compareMode ? '← Single Mode' : 'Compare Scenarios'}
-          </button>
+          <div className="header-actions">
+            <button className="theme-btn" onClick={() => setDarkMode(d => !d)}>
+              {darkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
+            <button className={`compare-btn ${compareMode ? 'active' : ''}`} onClick={toggleCompare}>
+              {compareMode ? '← Single Mode' : 'Compare Scenarios'}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -82,6 +92,7 @@ function App() {
           <CashFlowChart
             dataA={calcA.cashFlowData}
             dataB={compareMode ? calcB.cashFlowData : null}
+            darkMode={darkMode}
           />
         </div>
       </main>

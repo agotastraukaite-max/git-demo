@@ -1,8 +1,8 @@
-function fmt(n) {
-  return Math.abs(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+function fmt(n, symbol = '$') {
+  return `${symbol}${Math.abs(n).toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 }
 
-function Results({ roi, paybackPeriod, totalNetProfit, label, color }) {
+function Results({ roi, paybackPeriod, totalNetProfit, label, color, symbol = '$' }) {
   const roiPositive = roi >= 0;
   const profitPositive = totalNetProfit >= 0;
 
@@ -27,7 +27,7 @@ function Results({ roi, paybackPeriod, totalNetProfit, label, color }) {
         <div className="result-item" style={color ? { borderLeftColor: color } : {}}>
           <span className="result-label">Total Net Profit</span>
           <span className={`result-value ${profitPositive ? 'positive' : 'negative'}`}>
-            {profitPositive ? '+' : '-'}${fmt(totalNetProfit)}
+            {profitPositive ? '+' : '-'}{fmt(totalNetProfit, symbol)}
           </span>
         </div>
       </div>

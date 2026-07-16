@@ -11,9 +11,21 @@ const DEFAULTS = {
   period: 12,
 };
 
+const CURRENCIES = {
+  USD: '$',
+  EUR: '€',
+  GBP: '£',
+  JPY: '¥',
+  CAD: 'C$',
+  AUD: 'A$',
+  CHF: 'Fr ',
+};
+
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
+  const [currency, setCurrency] = useState('USD');
+  const symbol = CURRENCIES[currency];
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
@@ -75,6 +87,9 @@ function App() {
             values={activeValues}
             onChange={activeOnChange}
             onReset={activeReset}
+            currency={currency}
+            onCurrencyChange={setCurrency}
+            currencies={CURRENCIES}
             label={compareMode ? (activeTab === 'A' ? 'Scenario A' : 'Scenario B') : null}
             color={compareMode ? (activeTab === 'A' ? '#2563eb' : '#16a34a') : null}
           />
@@ -83,16 +98,17 @@ function App() {
         <div className="col-right">
           {compareMode ? (
             <div className="results-compare">
-              <Results {...calcA} label="Scenario A" color="#2563eb" />
-              <Results {...calcB} label="Scenario B" color="#16a34a" />
+              <Results {...calcA} label="Scenario A" color="#2563eb" symbol={symbol} />
+              <Results {...calcB} label="Scenario B" color="#16a34a" symbol={symbol} />
             </div>
           ) : (
-            <Results roi={calcA.roi} paybackPeriod={calcA.paybackPeriod} totalNetProfit={calcA.totalNetProfit} />
+            <Results roi={calcA.roi} paybackPeriod={calcA.paybackPeriod} totalNetProfit={calcA.totalNetProfit} symbol={symbol} />
           )}
           <CashFlowChart
             dataA={calcA.cashFlowData}
             dataB={compareMode ? calcB.cashFlowData : null}
             darkMode={darkMode}
+            symbol={symbol}
           />
         </div>
       </main>

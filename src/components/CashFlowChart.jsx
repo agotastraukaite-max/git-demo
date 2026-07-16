@@ -10,15 +10,15 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-function formatDollar(value) {
+function formatValue(value, symbol = '$') {
   const abs = Math.abs(value);
   const sign = value < 0 ? '-' : '';
-  if (abs >= 1000000) return `${sign}$${(abs / 1000000).toFixed(1)}M`;
-  if (abs >= 1000) return `${sign}$${(abs / 1000).toFixed(0)}K`;
-  return `${sign}$${abs}`;
+  if (abs >= 1000000) return `${sign}${symbol}${(abs / 1000000).toFixed(1)}M`;
+  if (abs >= 1000) return `${sign}${symbol}${(abs / 1000).toFixed(0)}K`;
+  return `${sign}${symbol}${abs}`;
 }
 
-function CustomTooltip({ active, payload, label, compareMode }) {
+function CustomTooltip({ active, payload, label, compareMode, symbol }) {
   if (!active || !payload?.length) return null;
   return (
     <div className="chart-tooltip">
@@ -26,14 +26,14 @@ function CustomTooltip({ active, payload, label, compareMode }) {
       {payload.map((entry) => (
         <p key={entry.dataKey} className="tooltip-value" style={{ color: entry.color }}>
           {compareMode ? `${entry.name}: ` : ''}
-          {entry.value >= 0 ? '+' : '-'}${Math.abs(entry.value).toLocaleString('en-US', { maximumFractionDigits: 0 })}
+          {entry.value >= 0 ? '+' : '-'}{symbol}{Math.abs(entry.value).toLocaleString('en-US', { maximumFractionDigits: 0 })}
         </p>
       ))}
     </div>
   );
 }
 
-function CashFlowChart({ dataA, dataB, darkMode }) {
+function CashFlowChart({ dataA, dataB, darkMode, symbol = '$' }) {
   const compareMode = Boolean(dataB);
   const gridColor = darkMode ? '#334155' : '#e5e7eb';
   const refLineColor = darkMode ? '#475569' : '#9ca3af';
@@ -58,8 +58,8 @@ function CashFlowChart({ dataA, dataB, darkMode }) {
             label={{ value: 'Month', position: 'insideBottom', offset: -2, fontSize: 12, fill: tickColor }}
             tick={{ fontSize: 12, fill: tickColor }}
           />
-          <YAxis tickFormatter={formatDollar} tick={{ fontSize: 11, fill: tickColor }} width={60} />
-          <Tooltip content={<CustomTooltip compareMode={compareMode} />} />
+          <YAxis tickFormatter={(v) => formatValue(v, symbol)} tick={{ fontSize: 11, fill: tickColor }} width={60} />
+          <Tooltip content={<CustomTooltip compareMode={compareMode} symbol={symbol} />} />
           {compareMode && (
             <Legend
               verticalAlign="top"

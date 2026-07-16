@@ -1,4 +1,4 @@
-function InputForm({ values, onChange, onReset, label, color }) {
+function InputForm({ values, onChange, onReset, currency, onCurrencyChange, currencies, label, color }) {
   function handleChange(e) {
     const { name, value } = e.target;
     onChange({ ...values, [name]: Number(value) });
@@ -13,7 +13,21 @@ function InputForm({ values, onChange, onReset, label, color }) {
         <button className="reset-btn" onClick={onReset} type="button">Reset</button>
       </div>
       <div className="form-group">
-        <label htmlFor={`initialInvestment-${label || 'main'}`}>Initial Investment ($)</label>
+        <label htmlFor="currency">Currency</label>
+        <select
+          id="currency"
+          value={currency}
+          onChange={e => onCurrencyChange(e.target.value)}
+        >
+          {Object.keys(currencies).map(code => (
+            <option key={code} value={code}>
+              {code} ({currencies[code].trim()})
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="form-group">
+        <label htmlFor={`initialInvestment-${label || 'main'}`}>Initial Investment</label>
         <input
           id={`initialInvestment-${label || 'main'}`}
           type="number"
@@ -24,7 +38,7 @@ function InputForm({ values, onChange, onReset, label, color }) {
         />
       </div>
       <div className="form-group">
-        <label htmlFor={`monthlyRevenue-${label || 'main'}`}>Expected Monthly Revenue ($)</label>
+        <label htmlFor={`monthlyRevenue-${label || 'main'}`}>Expected Monthly Revenue</label>
         <input
           id={`monthlyRevenue-${label || 'main'}`}
           type="number"
@@ -35,7 +49,7 @@ function InputForm({ values, onChange, onReset, label, color }) {
         />
       </div>
       <div className="form-group">
-        <label htmlFor={`monthlyCosts-${label || 'main'}`}>Monthly Operating Costs ($)</label>
+        <label htmlFor={`monthlyCosts-${label || 'main'}`}>Monthly Operating Costs</label>
         <input
           id={`monthlyCosts-${label || 'main'}`}
           type="number"

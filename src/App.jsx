@@ -22,6 +22,7 @@ function App() {
 
   const activeValues = activeTab === 'A' ? scenarioA : scenarioB;
   const activeOnChange = activeTab === 'A' ? setScenarioA : setScenarioB;
+  const activeReset = activeTab === 'A' ? () => setScenarioA(DEFAULTS) : () => setScenarioB(DEFAULTS);
 
   function toggleCompare() {
     setCompareMode(prev => !prev);
@@ -63,6 +64,7 @@ function App() {
           <InputForm
             values={activeValues}
             onChange={activeOnChange}
+            onReset={activeReset}
             label={compareMode ? (activeTab === 'A' ? 'Scenario A' : 'Scenario B') : null}
             color={compareMode ? (activeTab === 'A' ? '#2563eb' : '#16a34a') : null}
           />

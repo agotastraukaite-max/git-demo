@@ -1,4 +1,4 @@
-function InputForm({ values, onChange, label, color }) {
+function InputForm({ values, onChange, onReset, label, color }) {
   function handleChange(e) {
     const { name, value } = e.target;
     onChange({ ...values, [name]: Number(value) });
@@ -6,9 +6,12 @@ function InputForm({ values, onChange, label, color }) {
 
   return (
     <div className="card" style={color ? { borderTop: `3px solid ${color}` } : {}}>
-      <h2 className="card-title" style={color ? { color } : {}}>
-        {label ? `${label} — Details` : 'Project Details'}
-      </h2>
+      <div className="card-title-row">
+        <h2 className="card-title" style={color ? { color } : {}}>
+          {label ? `${label} — Details` : 'Project Details'}
+        </h2>
+        <button className="reset-btn" onClick={onReset} type="button">Reset</button>
+      </div>
       <div className="form-group">
         <label htmlFor={`initialInvestment-${label || 'main'}`}>Initial Investment ($)</label>
         <input

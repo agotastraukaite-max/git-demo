@@ -135,13 +135,37 @@ body {
   margin-bottom: 0;
 }
 
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #eff6ff;
+}
+
 .card-title {
   font-size: 1.125rem;
   font-weight: 600;
   color: #1e293b;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid #eff6ff;
+}
+
+.reset-btn {
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 0.25rem 0.75rem;
+  background: transparent;
+  color: #94a3b8;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.reset-btn:hover {
+  color: #dc2626;
+  border-color: #dc2626;
 }
 
 /* ── Form ── */

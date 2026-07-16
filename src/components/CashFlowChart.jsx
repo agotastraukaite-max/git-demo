@@ -47,7 +47,7 @@ function CashFlowChart({ dataA, dataB }) {
   return (
     <div className="card">
       <h2 className="card-title">Cumulative Cash Flow</h2>
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={400}>
         <LineChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
           <XAxis

@@ -1,16 +1,18 @@
-function InputForm({ values, onChange }) {
+function InputForm({ values, onChange, label, color }) {
   function handleChange(e) {
     const { name, value } = e.target;
-    onChange({ ...values, [name]: name === 'period' ? Number(value) : Number(value) });
+    onChange({ ...values, [name]: Number(value) });
   }
 
   return (
-    <div className="card">
-      <h2 className="card-title">Project Details</h2>
+    <div className="card" style={color ? { borderTop: `3px solid ${color}` } : {}}>
+      <h2 className="card-title" style={color ? { color } : {}}>
+        {label ? `${label} — Details` : 'Project Details'}
+      </h2>
       <div className="form-group">
-        <label htmlFor="initialInvestment">Initial Investment ($)</label>
+        <label htmlFor={`initialInvestment-${label || 'main'}`}>Initial Investment ($)</label>
         <input
-          id="initialInvestment"
+          id={`initialInvestment-${label || 'main'}`}
           type="number"
           name="initialInvestment"
           value={values.initialInvestment}
@@ -19,9 +21,9 @@ function InputForm({ values, onChange }) {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="monthlyRevenue">Expected Monthly Revenue ($)</label>
+        <label htmlFor={`monthlyRevenue-${label || 'main'}`}>Expected Monthly Revenue ($)</label>
         <input
-          id="monthlyRevenue"
+          id={`monthlyRevenue-${label || 'main'}`}
           type="number"
           name="monthlyRevenue"
           value={values.monthlyRevenue}
@@ -30,9 +32,9 @@ function InputForm({ values, onChange }) {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="monthlyCosts">Monthly Operating Costs ($)</label>
+        <label htmlFor={`monthlyCosts-${label || 'main'}`}>Monthly Operating Costs ($)</label>
         <input
-          id="monthlyCosts"
+          id={`monthlyCosts-${label || 'main'}`}
           type="number"
           name="monthlyCosts"
           value={values.monthlyCosts}
@@ -41,9 +43,9 @@ function InputForm({ values, onChange }) {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="period">Calculation Period (months)</label>
+        <label htmlFor={`period-${label || 'main'}`}>Calculation Period (months)</label>
         <select
-          id="period"
+          id={`period-${label || 'main'}`}
           name="period"
           value={values.period}
           onChange={handleChange}

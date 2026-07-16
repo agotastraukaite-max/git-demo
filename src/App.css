@@ -20,7 +20,13 @@ body {
 
 .app-header {
   margin-bottom: 2rem;
-  text-align: center;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .app-title {
@@ -36,6 +42,31 @@ body {
   color: #64748b;
 }
 
+/* ── Compare toggle button ── */
+.compare-btn {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: #fff;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.compare-btn:hover {
+  background: #eff6ff;
+}
+
+.compare-btn.active {
+  background: #2563eb;
+  color: #fff;
+}
+
 /* ── Two-column layout ── */
 .app-layout {
   display: grid;
@@ -44,14 +75,51 @@ body {
   align-items: start;
 }
 
-@media (max-width: 768px) {
-  .app-layout {
-    grid-template-columns: 1fr;
-  }
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
 
-  .app-title {
-    font-size: 1.5rem;
-  }
+.tab-btn {
+  flex: 1;
+  padding: 0.55rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: #f1f5f9;
+  color: #64748b;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tab-btn:hover:not(.active-a):not(.active-b) {
+  background: #e2e8f0;
+}
+
+.tab-btn.active-a {
+  background: #2563eb;
+  color: #fff;
+}
+
+.tab-btn.active-b {
+  background: #16a34a;
+  color: #fff;
+}
+
+/* ── Side-by-side results in compare mode ── */
+.results-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.results-compare .card {
+  margin-bottom: 0;
 }
 
 /* ── Card ── */
@@ -149,10 +217,6 @@ body {
   color: #dc2626;
 }
 
-.result-value.neutral {
-  color: #2563eb;
-}
-
 /* ── Chart tooltip ── */
 .chart-tooltip {
   background: #fff;
@@ -165,10 +229,33 @@ body {
 .tooltip-month {
   font-size: 0.8rem;
   color: #64748b;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.25rem;
 }
 
 .tooltip-value {
   font-size: 1rem;
   font-weight: 700;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .app-title {
+    font-size: 1.5rem;
+  }
+
+  .header-top {
+    flex-direction: column;
+  }
+
+  .compare-btn {
+    width: 100%;
+  }
+
+  .results-compare {
+    grid-template-columns: 1fr;
+  }
 }
